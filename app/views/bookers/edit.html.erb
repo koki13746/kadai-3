@@ -1,0 +1,26 @@
+<h1>Editing Book</h1>
+<%= form_for(@booker, url:"/bookers/#{@booker.id}") do |f| %>
+  <% if @booker.errors.any? %>
+     <div id="error_explanation">
+       <h2>
+         <%= pluralize(@booker.errors.count, "error") %> prohibited
+         this article from being saved:
+       </h2>
+       <ul>
+         <% @booker.errors.full_messages.each do |msg| %>
+           <li><%= msg %></li>
+         <% end %>
+       </ul>
+     </div>
+   <% end %>
+
+  <h4>Title</h4>
+  <%= f.text_field :title %>
+  <h4>Body</h4>
+  <%= f.text_area :body %>
+  <br><%= f.submit 'Update Book' %></br>
+<% end %>
+<%= link_to "show", booker_path(@booker.id) %>
+<%= link_to "back", {:action => "index"}, :method => "get" %>
+
+<!--show | back-->

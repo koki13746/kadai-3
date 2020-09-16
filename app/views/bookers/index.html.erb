@@ -1,0 +1,64 @@
+<% if flash[:notice] %>
+  <p><%= flash[:notice] %></p>
+<% end %>
+
+<h1>Books</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Body</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @bookers.each do |booker| %>
+			<tr>
+				<td>
+					<%= booker.title %>
+				</td>
+				<td>
+					<%= booker.body %>
+				</td>
+				<td>
+					<%= link_to "show", booker_path(booker.id) %>
+					<%= link_to "edit", edit_booker_path(booker.id) %>
+					<%= link_to "destroy", booker_path(booker.id), method: :delete, "data-confirm" => "Are you sure?" %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+
+<!--https://techtechmedia.com/error-messages-validation-rails/-->
+<h3>New book</h3>
+<!-- form_for部分 -->
+<%= form_for @booker do |f| %>
+	<!--空欄だった場合-->
+	<% if @booker.errors.any? %>
+     <div id="error_explanation">
+       <h2>
+         <%= pluralize(@booker.errors.count, "error") %> prohibited
+         this article from being saved:
+       </h2>
+       <ul>
+         <% @booker.errors.full_messages.each do |msg| %>
+           <li><%= msg %></li>
+         <% end %>
+       </ul>
+     </div>
+   <% end %>
+
+	<h4>Title</h4>
+	<%= f.text_field :title %>
+
+	<h4>Body</h4>
+	<%= f.text_area :body %>
+
+	<br><%= f.submit 'Create Book' %></br>
+
+<% end %>
+
+

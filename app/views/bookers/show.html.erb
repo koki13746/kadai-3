@@ -1,0 +1,13 @@
+<% if flash[:notice] %>
+  <p><%= flash[:notice] %></p>
+<% end %>
+
+<strong>Title</strong>
+<p><%= @booker.title %></p>
+
+<strong>Body</strong>
+<p><%= @booker.body %></p>
+
+<%= link_to "edit", edit_booker_path(@booker.id) %>
+<%= link_to "back", {:action => "index"}, :method => "get" %>
+<!--参考：http://song-of-life.hatenablog.com/entry/2017/03/01/214957-->
